@@ -2,10 +2,9 @@
 A node module for testing your api performance and correctness. Built for a competition platform that me and my friends are working on.
 
 ## How to run
-* Clone repo first!
-* Then run :
+* NPM
 ```
-yarn
+npm i measurio
 ```
 ### Example usage
 ```js

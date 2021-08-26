@@ -53,7 +53,7 @@ yarn
   received: '340 : 4520'
 }
 ```
-*Other error
+* Other error
 ```js
 {
   code: 2048,

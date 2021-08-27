@@ -8,7 +8,7 @@ npm i measurio
 ```
 ### Example usage
 ```js
-    import { Measurer } from '
+    import { Measurer } from 'measurio'
 
     const payload = {
         timelimit : 2000,

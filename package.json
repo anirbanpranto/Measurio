@@ -11,8 +11,12 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anirbanpranto/Measurio"
+  },
+  "author": "Anirban Bala Pranto",
+  "license": "MIT",
   "dependencies": {
     "@types/node": "^16.7.2",
     "axios": "^0.21.1",

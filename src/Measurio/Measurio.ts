@@ -21,7 +21,6 @@ export class Measurio {
     test: Object;
     headers: Object;
   }) {
-    console.log("Here");
     const start = performance.now();
     const tl = payload.timelimit + this.buffer;
     const options = {

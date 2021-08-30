@@ -8,20 +8,29 @@ npm i measurio
 ```
 ### Example usage
 ```js
-    import { Measurer } from 'measurio'
+import { Measurio } from 'measurio'
 
+const url = "http://localhost:3000/someendpoint"
+const method = "GET"
+
+const main = async () => {
+    const measurio = new Measurio(url, method);
+
+    //example expects a sorted array of the provided values
     const payload = {
         timelimit : 2000,
-        case : {"1" : "string", "2" : "spoderman"}, //input
-        test : {"1" : "gnirts", "2" : "namredops"}, //expected output
+        case : {1 : [5, 2, 3], 2 : [9, 78, 2, 21, 1]},
+        test : {1 : [2, 3, 5], 2 : [78, 21, 9, 2, 1]},
         headers : {
             "Content-type" : "application/json"
         }
     }
-    const url = "http://localhost:3000/someEndPoint"
-    const method = "GET"
-    const measurer = new Measurer(url, method);
-    const result = await measurer.testcase(payload);
+
+    const ans = await measurio.testcase(payload)
+    console.log(ans);
+}
+
+main()
 ```
 
 ### Example Responses

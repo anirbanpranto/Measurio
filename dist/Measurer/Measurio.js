@@ -9,21 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Measurer = void 0;
+exports.Measurio = void 0;
 const axios_1 = require("axios");
 const perf_hooks_1 = require("perf_hooks");
 const FAILED_CASE = 1024;
 const TIME_LIMIT = 2048;
 const PASSED_CASE = 4096;
-class Measurer {
-    constructor(url, method, types) {
+class Measurio {
+    constructor(url, method) {
         this.url = url;
         this.method = method;
         this.buffer = 200;
-        this.types = types;
     }
     testcase(payload) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("HERe");
             const start = perf_hooks_1.performance.now();
             const tl = payload.timelimit + this.buffer;
             const options = {
@@ -61,6 +61,15 @@ class Measurer {
                         });
                         return;
                     }
+                    if (JSON.stringify(ans.data) === JSON.stringify(payload.test)) {
+                        resolve({
+                            code: PASSED_CASE,
+                            time: perf_hooks_1.performance.now() - start,
+                            message: "Test Passed!",
+                        });
+                        return;
+                    }
+                    //for looking for where it went wrong
                     for (let i = 0; i < keys.length; i++) {
                         const type = typeof payload.test[keys[i]];
                         switch (type) {
@@ -68,21 +77,10 @@ class Measurer {
                             case "boolean":
                             case "number":
                             case "string":
-                                if (payload.test[keys[i]] === ans.data[keys[i]] &&
+                                if (!(payload.test[keys[i]] === ans.data[keys[i]] &&
                                     ans.data[keys[i]] &&
                                     payload.test[keys[i]] &&
-                                    ans) {
-                                    passed.push(i);
-                                    if (i === keys.length - 1 && passed.length === keys.length) {
-                                        resolve({
-                                            code: PASSED_CASE,
-                                            time: perf_hooks_1.performance.now() - start,
-                                            message: "Test Passed!",
-                                        });
-                                        return;
-                                    }
-                                }
-                                else {
+                                    ans)) {
                                     resolve({
                                         code: FAILED_CASE,
                                         time: perf_hooks_1.performance.now() - start,
@@ -94,21 +92,9 @@ class Measurer {
                                 }
                                 break;
                             case "object":
-                                if (payload.test[keys[i]] === ans.data[keys[i]] &&
-                                    ans.data[keys[i]] &&
-                                    payload.test[keys[i]] &&
-                                    ans) {
-                                    passed.push(i);
-                                    if (i === keys.length - 1 && passed.length === keys.length) {
-                                        resolve({
-                                            code: PASSED_CASE,
-                                            time: perf_hooks_1.performance.now() - start,
-                                            message: "Test Passed!",
-                                        });
-                                        return;
-                                    }
-                                }
-                                else {
+                                if (!(typeof payload.test[keys[i]] === typeof ans.data[keys[i]]) ||
+                                    JSON.stringify(payload.test[keys[i]]) !==
+                                        JSON.stringify(ans.data[keys[i]])) {
                                     resolve({
                                         code: FAILED_CASE,
                                         time: perf_hooks_1.performance.now() - start,
@@ -127,4 +113,4 @@ class Measurer {
         });
     }
 }
-exports.Measurer = Measurer;
+exports.Measurio = Measurio;

@@ -1,10 +1,9 @@
 import { Method } from "axios";
-export declare class Measurer {
+export declare class Measurio {
     url: string;
     method: Method;
     buffer: number;
-    types: string;
-    constructor(url: string, method: Method, types: string);
+    constructor(url: string, method: Method);
     testcase(payload: {
         timelimit: number;
         case: Object;
